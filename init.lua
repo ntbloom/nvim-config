@@ -1,73 +1,41 @@
 -- init.lua
 
-----------------------
--- LAZY.NVIM config --
-----------------------
+--use lazy plugin for configuration, see `$HOME/.config/nvim/lua/config/lazy.lua`
+require('config.lazy')
 
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-end
-vim.opt.rtp:prepend(lazypath)
+-- line numbering
+vim.opt.nu = true
+vim.opt.relativenumber = true
 
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+-- set tab spaces to 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.expandtab = false
 
--- Setup lazy.nvim
-require("lazy").setup({
-    -- add your plugins here
-    spec = {
-	"nvim-lua/plenary.nvim",			--allows async lua
-	{"nvim-treesitter/nvim-treesitter",		--AST support
-		build = ":TSUpdate"
-	},
-	{"nvim-telescope/telescope.nvim", 		--fuzzy finder
-		tag = '0.1.6', 
-		requires = { 
-			{"nvim-lua/plenary.nvim"}
-		}
-	},
-	{"ThePrimeagen/harpoon", 			--file jumping
-		branch = "harpoon2",
-		dependencies = {
-			"nvim-lua/plenary.nvim"
-		}
-	},
-	{"mbbill/undotree"},				--fix mistakes
-	{"tpope/vim-fugitive"},				--git support
+-- hand off undoing to undotree plugin, may need to revisit?
+vim.opt.swapfile = true
+vim.opt.backup = true
+vim.undodir = os.getenv("HOME") .. "/.vim.undodir"
+vim.opt.undofile = true
 
-	--lsp configuration
-        {"neovim/nvim-lspconfig"}, 			--lsp configs
-        {"hrsh7th/cmp-nvim-lsp"}, 			--autocompletion
-        {"hrsh7th/nvim-cmp"}, 				--additional autocompletion
-        {"L3MON4D3/LuaSnip", 				--snippet engine
-		version = "v2.*", 
-		build = "make install_jsregexp", 
-		dependencies = {
-			'saadparwaiz1/cmp_luasnip',
-			'rafamadriz/friendly-snippets'
-		}
-	}, 
-        {"williamboman/mason.nvim"}, 			--lsp package manager
-        {"williamboman/mason-lspconfig.nvim"}, 		--lsp package manager configs	
-	
-	--color scheme 
-	{'rebelot/kanagawa.nvim'},
-    },
-    
-    -- Configure any other settings here. See the documentation for more details.
-    -- colorscheme that will be used when installing plugins.
-    install = { colorscheme = { "habamax" } },
-    
-    -- automatically check for plugin updates
-    checker = { enabled = true },
-})
-------------------------
--- END LAZYVIM CONFIG --
-------------------------
+-- set incremental search. This helps immensly with tricky searches
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 
+-- fast update time
+vim.opt.updatetime = 50
+
+-- color column to 80 characters
+vim.opt.colorcolumn = "88"
+
+-- filetype trigger
+vim.opt.filetype='on'
+
+-- set escape to enter normal mode in terminal buffer
+vim.keymap.set("t","<esc>",[[<C-\><C-n>]],{silent = true, noremap = true})
+vim.api.nvim_set_keymap("n","<leader><leader>term",':belowright split | terminal<CR>',{noremap = true, silent=true})
+
+--- don't continue single-line comments onto next line
+vim.cmd('autocmd BufEnter * set formatoptions-=cro') 		
+vim.cmd('autocmd BufEnter * setlocal formatoptions-=cro')
