@@ -15,9 +15,7 @@ vim.expandtab = false
 
 -- hand off undoing to undotree plugin, may need to revisit?
 vim.opt.swapfile = true
-vim.opt.backup = true
-vim.undodir = os.getenv("HOME") .. "/.vim.undodir"
-vim.opt.undofile = true
+vim.opt.backup = false
 
 -- set incremental search. This helps immensly with tricky searches
 vim.opt.hlsearch = false
