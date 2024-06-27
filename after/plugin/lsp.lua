@@ -1,3 +1,5 @@
+--lsp.lua: configure language servers
+
 require("mason").setup({})
 require("mason-lspconfig").setup({
     handlers = {
