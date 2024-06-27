@@ -22,30 +22,30 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
     -- add your plugins here
     spec = {
-"nvim-lua/plenary.nvim",
-	{"nvim-treesitter/nvim-treesitter", 
+	"nvim-lua/plenary.nvim",			--allows async lua
+	{"nvim-treesitter/nvim-treesitter",		--AST support
 		build = ":TSUpdate"
 	},
-	{"nvim-telescope/telescope.nvim", 
+	{"nvim-telescope/telescope.nvim", 		--fuzzy finder
 		tag = '0.1.6', 
 		requires = { 
 			{"nvim-lua/plenary.nvim"}
 		}
 	},
-	{"ThePrimeagen/harpoon", 
+	{"ThePrimeagen/harpoon", 			--file jumping
 		branch = "harpoon2",
 		dependencies = {
 			"nvim-lua/plenary.nvim"
 		}
 	},
-	{"mbbill/undotree"},
-	{"tpope/vim-fugitive"},
+	{"mbbill/undotree"},				--fix mistakes
+	{"tpope/vim-fugitive"},				--git support
 
 	--lsp configuration
-        {"neovim/nvim-lspconfig"}, --lsp configs
-        {"hrsh7th/cmp-nvim-lsp"}, -- autocompletion
-        {"hrsh7th/nvim-cmp"}, --additional autocompletion
-        {"L3MON4D3/LuaSnip", --snippet engine
+        {"neovim/nvim-lspconfig"}, 			--lsp configs
+        {"hrsh7th/cmp-nvim-lsp"}, 			--autocompletion
+        {"hrsh7th/nvim-cmp"}, 				--additional autocompletion
+        {"L3MON4D3/LuaSnip", 				--snippet engine
 		version = "v2.*", 
 		build = "make install_jsregexp", 
 		dependencies = {
@@ -53,8 +53,9 @@ require("lazy").setup({
 			'rafamadriz/friendly-snippets'
 		}
 	}, 
-        {"williamboman/mason.nvim"}, --lsp package manager
-        {"williamboman/mason-lspconfig.nvim"}, --lsp package manager configs	
+        {"williamboman/mason.nvim"}, 			--lsp package manager
+        {"williamboman/mason-lspconfig.nvim"}, 		--lsp package manager configs	
+	
 	--color scheme 
 	{'rebelot/kanagawa.nvim'},
     },
